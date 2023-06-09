@@ -13,7 +13,7 @@
             <tr>
                 <th>ID</th>
                 <th>Vards</th>
-                <th>Darbiba</th>
+                <th>Darbibas</th>
             </tr>
         </thead>
         <tbody>
