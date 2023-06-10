@@ -63,5 +63,32 @@ class BookController extends Controller
 
         return redirect('/books');
     }
+    //display author update form
+    public function update(Book $book) 
+    {
+        return view(
+            'book.form',
+            [
+                'title' => 'Rediget gramatu', 
+                'book' => $book, 
+            ]
+        );
+    }
+    //update existing objects
+    public function patch(Book $book, Request $request) 
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
 
+        $book->name = $validatedData['name'];
+        $book->save();
+
+        return redirect('/books');
+    }
+    public function delete(Book $book)
+    {
+        $book->delete();
+        return redirect('/books');
+    }
 }
