@@ -12,9 +12,10 @@
     @endif
 
 
-    <form method="post" action="{{ $book->exists ? '/books/patch/' . $book->id : '/books/put' }}">
+    <form method="post" action="{{ $book->exists ? '/books/patch/' . $book->id : '/books/put' }}"  enctype="multipart/form-data">
         @csrf
 
+        
 
         <div class="mb-3">
             <label for="book-name" class="form-label">Grāmatas nosaukums</label>
@@ -144,6 +145,29 @@
                     <p class="invalid-feedback">{{ $errors->first('display') }}</p>
                 @enderror
             </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="book-image" class="form-label">Attēls</label>
+        
+            @if ($book->image)
+                <img
+                    src="{{ asset('images/' . $book->image) }}"
+                    class="img-fluid img-thumbnail d-block mb-2"
+                    alt="{{ $book->name }}"
+                >
+            @endif
+        
+            <input
+                type="file" accept="image/png, image/jpeg"
+                id="book-image"
+                name="image"
+                class="form-control @error('image') is-invalid @enderror"
+            >
+        
+            @error('image')
+                <p class="invalid-feedback">{{ $errors->first('image') }}</p>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">{{ $book->exists ? 'Atjaunot' : 'Pievienot' }}</button>
